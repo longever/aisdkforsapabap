@@ -39,7 +39,7 @@ start-of-selection.
       sdk_instance = zcl_peng_azoai_sdk_factory=>get_instance( )->get_sdk(
                                                             api_version = p_ver
                                                             api_base    = p_url
-                                                            api_type    = zif_peng_azoai_sdk_constants=>c_apitype-azure
+                                                            api_type    = p_type "zif_peng_azoai_sdk_constants=>c_apitype-azure
                                                             api_key     = p_key
                                                           ).
       create object g_aidemo_screen.
