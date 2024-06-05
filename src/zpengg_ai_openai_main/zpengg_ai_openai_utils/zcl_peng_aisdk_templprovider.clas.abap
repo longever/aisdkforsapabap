@@ -54,7 +54,10 @@ CLASS zcl_peng_aisdk_templprovider DEFINITION
 
 ENDCLASS.
 
-CLASS zcl_peng_aisdk_templprovider IMPLEMENTATION.
+
+
+CLASS ZCL_PENG_AISDK_TEMPLPROVIDER IMPLEMENTATION.
+
 
   METHOD constructor.
 *****************************************************************************************************************
@@ -85,6 +88,11 @@ CLASS zcl_peng_aisdk_templprovider IMPLEMENTATION.
       WHEN  zif_peng_azoai_sdk_constants=>c_apitype-openai.
         _providerclassname = to_upper( zif_peng_azoai_sdk_constants=>c_urltemplateproviders-openai ).
 
+      WHEN  zif_peng_azoai_sdk_constants=>c_apitype-proxy."add openai proxy
+        _providerclassname = to_upper( zif_peng_azoai_sdk_constants=>c_urltemplateproviders-proxy ).
+
+      WHEN  zif_peng_azoai_sdk_constants=>c_apitype-local."add local deployed LLM
+        _providerclassname = to_upper( zif_peng_azoai_sdk_constants=>c_urltemplateproviders-local ).
       WHEN OTHERS.
         RAISE EXCEPTION TYPE zcx_peng_azoai_sdk_exception
           EXPORTING
@@ -103,7 +111,6 @@ CLASS zcl_peng_aisdk_templprovider IMPLEMENTATION.
     ).
 
   ENDMETHOD.
-
 
 
   METHOD get_urltemplate.
@@ -129,5 +136,4 @@ CLASS zcl_peng_aisdk_templprovider IMPLEMENTATION.
                    ).
 
   ENDMETHOD.
-
 ENDCLASS.

@@ -68,6 +68,8 @@ INTERFACE zif_peng_azoai_sdk_constants
       azure    TYPE string VALUE 'azure',
       azure_ad TYPE string VALUE 'azure_ad',
       openai   TYPE string VALUE 'openai',
+      proxy   TYPE string VALUE 'proxy',
+      local   TYPE string VALUE 'local',
     END OF c_apitype,
 
 
@@ -95,6 +97,8 @@ INTERFACE zif_peng_azoai_sdk_constants
     BEGIN OF c_urltemplateproviders,
       azureopenai TYPE string VALUE 'zcl_peng_azoai_urlprovider',
       openai      TYPE string VALUE 'zcl_peng_oai_urlprovider',
+      proxy      TYPE string VALUE 'zcl_peng_oai_proxy_urlprovider',
+      local      TYPE string VALUE 'zcl_peng_local_urlprovider',
     END OF c_urltemplateproviders,
 
     BEGIN OF c_chatcompletion_role,

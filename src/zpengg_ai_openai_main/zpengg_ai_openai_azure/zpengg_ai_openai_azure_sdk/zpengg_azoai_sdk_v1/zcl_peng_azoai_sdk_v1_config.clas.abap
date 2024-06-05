@@ -93,7 +93,8 @@ ENDCLASS.
 
 
 
-CLASS zcl_peng_azoai_sdk_v1_config IMPLEMENTATION.
+CLASS ZCL_PENG_AZOAI_SDK_V1_CONFIG IMPLEMENTATION.
+
 
   METHOD zif_peng_azoai_sdk_config~initialize_config.
 *****************************************************************************************************************
@@ -176,6 +177,14 @@ CLASS zcl_peng_azoai_sdk_v1_config IMPLEMENTATION.
                                             (
                                                 api_type = zif_peng_azoai_sdk_constants=>c_apitype-openai
                                                 description = |Open AI End point|
+                                            )
+                                            (
+                                                api_type = zif_peng_azoai_sdk_constants=>c_apitype-proxy
+                                                description = |Proxy for Open AI End point|
+                                            )
+                                            (
+                                                api_type = zif_peng_azoai_sdk_constants=>c_apitype-local
+                                                description = |Local Deployed LLM End point|
                                             )
                                          ).
   ENDMETHOD.
@@ -286,7 +295,10 @@ CLASS zcl_peng_azoai_sdk_v1_config IMPLEMENTATION.
             EXPORTING
               textid = zcx_peng_azoai_sdk_exception=>invalid_api_base_url.
         ENDIF.
-
+      WHEN zif_peng_azoai_sdk_constants=>c_apitype-proxy.
+        ...
+      WHEN zif_peng_azoai_sdk_constants=>c_apitype-local.
+        ...
     ENDCASE.
 
 
@@ -398,10 +410,15 @@ CLASS zcl_peng_azoai_sdk_v1_config IMPLEMENTATION.
       WHEN zif_peng_azoai_sdk_constants=>c_apitype-azure_ad OR zif_peng_azoai_sdk_constants=>c_apitype-openai.
         _auth_header-name   = zif_peng_azoai_sdk_constants=>c_authheader_paramnames-authorization.
         _auth_header-value  = |{ zif_peng_azoai_sdk_constants=>c_authheader_paramnames-bearer } { _api_key }|.
+      WHEN zif_peng_azoai_sdk_constants=>c_apitype-proxy.
+        _auth_header-name   = zif_peng_azoai_sdk_constants=>c_authheader_paramnames-authorization.
+        _auth_header-value  = |{ zif_peng_azoai_sdk_constants=>c_authheader_paramnames-bearer } { _api_key }|.
+      WHEN zif_peng_azoai_sdk_constants=>c_apitype-local.
+        _auth_header-name   = zif_peng_azoai_sdk_constants=>c_authheader_paramnames-authorization.
+        _auth_header-value  = |{ zif_peng_azoai_sdk_constants=>c_authheader_paramnames-bearer } { _api_key }|.
       WHEN OTHERS.
         MESSAGE 'Error in SDK Code. DEBUG INFO: Class : ZCL_PENG_AZOAI_SDK_CONFIG, Method: _set_authentication' TYPE 'E'.
     ENDCASE.
 
   ENDMETHOD.
-
 ENDCLASS.
